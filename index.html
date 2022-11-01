@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <script>
+      function clickhandler() {
+        event.preventDefault();
+        var x = document.getElementById("name").value;
+        document.getElementById("spanish").textContent = x;
+      }
+      let g;
+
+      try {
+        fetch(
+          "https://raw.githubusercontent.com/EthanRBrown/rrad/master/addresses-us-1000.json"
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data.addresses[0]);
+            g = data.addresses[1].address1;
+            document.getElementById("container").textContent = g;
+          })
+          .catch((err) => console.log(err));
+      } catch (err) {
+        console.log(err);
+      }
+
+      setInterval(() => {
+        var date = new Date();
+        document.getElementById("clocktime").textContent =
+          date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+      }, "1000");
+    </script>
+  </head>
+  <body>
+    <form>
+      <input type="text" id="name" placeholder="Your Name" />
+      <button onclick="clickhandler()">Submit</button>
+    </form>
+    <div id="clock"><span id="clocktime"></span></div>
+    <div class="container"><span id="container"></span></div>
+    <div id="cont"><span id="spanish"></span></div>
+  </body>
+</html>
